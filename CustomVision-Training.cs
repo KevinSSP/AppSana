@@ -81,7 +81,7 @@ namespace AppSANA
 
         public static Project GetProject(string projectName)
         {
-            Console.WriteLine("\nObteniendo proyecto ...");
+            //Console.WriteLine("\nObteniendo proyecto ...");
             Project project = null;
 
             try
@@ -92,7 +92,7 @@ namespace AppSANA
                     if (p.Name == projectName)
                     {
                         project = trainingApi.GetProject(p.Id);
-                        Console.WriteLine($"\nProyecto '{projectName}' fue encontrado.");
+                        //Console.WriteLine($"\nProyecto '{projectName}' fue encontrado.");
                         return project;
                     }
                 }
