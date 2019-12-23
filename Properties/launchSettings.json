@@ -8,7 +8,7 @@
         "modelNameObjectDetectionForm": "TestDemoFormIT2",
         "storageConnectionString": "DefaultEndpointsProtocol=https;AccountName=sasanaposesion;AccountKey=TD13Kp2fDH8Ao9wITisGGjt0Z9ax6llBvNaJTyd/IgNh0SM12XWRqQvmCKVmRppvRO0mRKtrOtFc5iUw5yrgrg==;EndpointSuffix=core.windows.net",
         "blobContainerName": "sanaposesion",
-        "projectSignatureName": "Signature-TEST",
+        "projectSignatureName": "Piloto - Pital",
         "localFilePath": "C:\\DEMOAGRARIO\\",
         "subscriptionKeyCV": "6d98a5fea07a4c9ea321f141d0dd8a03",
         "computerVisionEndpoint": "https://eastus2.api.cognitive.microsoft.com/"

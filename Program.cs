@@ -33,7 +33,7 @@ namespace AppSANA
             // Conexion Blob Storage
             CloudBlobContainer containerBlob = ConnectionBlob();
 
-            Console.WriteLine("1. Obteniendo listado de Blobs del contenedor del dia anterior.");
+            Console.WriteLine("1. Obteniendo listado de Blobs  del dia anterior.");
             DateTime dateForSearch = DateTime.Now.AddDays(-1);
 
             CloudBlobDirectory result = containerBlob.GetDirectoryReference(Environment.GetEnvironmentVariable("containerPreProcessingName") + "/" + dateForSearch.ToString("yyyyMMdd"));
