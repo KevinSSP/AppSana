@@ -106,7 +106,7 @@ namespace AppSANA
             {
                 foreach (var c in result.Predictions)
                 {
-                    if (c.TagName == idPresident)
+                    if (c.TagName.Split("-")[0] == idPresident)
                     {
                         Console.WriteLine($"\t{c.TagName}: {c.Probability:P1}");
                         logImages.Add(c.TagName, c.Probability);

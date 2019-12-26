@@ -9,3 +9,14 @@ C:\Users\Kevin Sanchez\Documents\AppSANA\obj\Debug\netcoreapp2.1\AppSANA.dll
 C:\Users\Kevin Sanchez\Documents\AppSANA\obj\Debug\netcoreapp2.1\AppSANA.pdb
 C:\Users\Kevin Sanchez\Documents\AppSANA\obj\Debug\netcoreapp2.1\AppSANA.csprojAssemblyReference.cache
 C:\Users\Kevin Sanchez\Documents\AppSANA\bin\Debug\netcoreapp2.1\Settings.job
+C:\Users\Kevin\Documents\Condonacion_TalentoDigital\Banco Agrario\AppSANA\bin\Debug\netcoreapp2.1\Settings.job
+C:\Users\Kevin\Documents\Condonacion_TalentoDigital\Banco Agrario\AppSANA\bin\Debug\netcoreapp2.1\AppSANA.deps.json
+C:\Users\Kevin\Documents\Condonacion_TalentoDigital\Banco Agrario\AppSANA\bin\Debug\netcoreapp2.1\AppSANA.runtimeconfig.json
+C:\Users\Kevin\Documents\Condonacion_TalentoDigital\Banco Agrario\AppSANA\bin\Debug\netcoreapp2.1\AppSANA.runtimeconfig.dev.json
+C:\Users\Kevin\Documents\Condonacion_TalentoDigital\Banco Agrario\AppSANA\bin\Debug\netcoreapp2.1\AppSANA.dll
+C:\Users\Kevin\Documents\Condonacion_TalentoDigital\Banco Agrario\AppSANA\bin\Debug\netcoreapp2.1\AppSANA.pdb
+C:\Users\Kevin\Documents\Condonacion_TalentoDigital\Banco Agrario\AppSANA\obj\Debug\netcoreapp2.1\AppSANA.AssemblyInfoInputs.cache
+C:\Users\Kevin\Documents\Condonacion_TalentoDigital\Banco Agrario\AppSANA\obj\Debug\netcoreapp2.1\AppSANA.AssemblyInfo.cs
+C:\Users\Kevin\Documents\Condonacion_TalentoDigital\Banco Agrario\AppSANA\obj\Debug\netcoreapp2.1\AppSANA.dll
+C:\Users\Kevin\Documents\Condonacion_TalentoDigital\Banco Agrario\AppSANA\obj\Debug\netcoreapp2.1\AppSANA.pdb
+C:\Users\Kevin\Documents\Condonacion_TalentoDigital\Banco Agrario\AppSANA\obj\Debug\netcoreapp2.1\AppSANA.csprojAssemblyReference.cache

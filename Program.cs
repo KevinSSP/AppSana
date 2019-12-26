@@ -229,7 +229,11 @@ namespace AppSANA
                     {
                         foreach (var item in respDictionary){ subList.Add(item.Key + "," + $"{item.Value:P1}");}
                     }
-                    else{ subList.Add("null,null");}
+                    else
+                    {
+                        Console.WriteLine($"\t{respID}: {respDictionary.Count:P1}");
+                        subList.Add("null,null");
+                    }
 
                     //Console.WriteLine("5. Fin de procesamiento de archivo."); 
                 }
@@ -254,8 +258,8 @@ namespace AppSANA
                 {
                     System.Drawing.Image imageBlobForm = System.Drawing.Image.FromFile(localFilename);
 
-                    Rectangle cropRectangleFirmaPresident = new Rectangle(930, 2180, 1600, 650);
-                    Rectangle cropRectangleIDPresident = new Rectangle(1030, 3200, 1400, 400);
+                    Rectangle cropRectangleFirmaPresident = new Rectangle(530, 1130, 780, 310);
+                    Rectangle cropRectangleIDPresident = new Rectangle(570, 1560, 610, 100);
 
                     foreach (var item in coordinatesImages)
                     {
@@ -412,7 +416,7 @@ namespace AppSANA
             // FIRMAS MODFIFICAR NOMBRE DE MODELO
             try
             {
-                logPredictionSignature = await Prediction.PredictImageFile(projectSignature.Id, "TestSignatureIT3", localFileNameFirma, respID);
+                logPredictionSignature = await Prediction.PredictImageFile(projectSignature.Id, "iteracion3", localFileNameFirma, respID);
                 return logPredictionSignature;
             }
             catch (Exception e)
