@@ -41,14 +41,17 @@ namespace AppSANA
             }
         }
 
+        /**
+         * Mapear datos .dat para informe CSV
+        **/
         public static string getInfoOfImage(string id)
         {
             string result = "";
             foreach (string[] item in _globalListInfo)
             {
-                if (item[9] == id)
+                if (item[8] == id)
                 {
-                    result = item[11] + "," + item[8];
+                    result = item[8] + "," + item[1] + "," + item[2] + "," + item[3] + "," + item[4] + "," + item[5] + "," + item[6] + "," + item[7];
                 }
             }
 

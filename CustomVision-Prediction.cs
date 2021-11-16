@@ -52,9 +52,7 @@ namespace AppSANA
         public static async Task<Dictionary<string, float[]>> PredictImageURLForm(Guid projectID, string modelName, string url)
         {   
             ImageUrl imageUrl = new ImageUrl(url);
-
             ImagePrediction result = null;
-
             Dictionary<string, float[]> logImages = new Dictionary<string, float[]>();
 
             try

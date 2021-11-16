@@ -20,7 +20,7 @@ namespace AppSANA
         static void Main(string[] args)
         {
             EmptyFolderTemp();
-            Console.WriteLine("PoC - SANA POSESION");
+            Console.WriteLine("APP SANA POSESION - BETA");
             Console.WriteLine();
             ProcessAsync().GetAwaiter().GetResult();
 
@@ -33,10 +33,14 @@ namespace AppSANA
             // Conexion Blob Storage
             CloudBlobContainer containerBlob = ConnectionBlob();
 
-            Console.WriteLine("1. Obteniendo listado de Blobs  del dia anterior.");
+            Console.WriteLine("0. Obteniendo listado de Blobs del dia anterior.");
             DateTime dateForSearch = DateTime.Now.AddDays(-1);
 
-            CloudBlobDirectory result = containerBlob.GetDirectoryReference(Environment.GetEnvironmentVariable("containerPreProcessingName") + "/" + dateForSearch.ToString("yyyyMMdd"));
+            // Reemplazar
+            //CloudBlobDirectory result = containerBlob.GetDirectoryReference(Environment.GetEnvironmentVariable("containerPreProcessingName") + "/" + dateForSearch.ToString("d_M_yyyy"));
+            CloudBlobDirectory result = containerBlob.GetDirectoryReference(Environment.GetEnvironmentVariable("containerPreProcessingName") + "/" + "26_10_2020");
+
+            // Lectura de archivo .dat
             bool bReadDat = ReadFileDat(result);
 
             if (bReadDat)
@@ -48,7 +52,7 @@ namespace AppSANA
                 await SendEmailCSV();
 
             }
-            else { Console.WriteLine("Revise la lectura del archivo .dat, "); }
+            else { Console.WriteLine("** Revise el archivo archivo .dat de la carpeta con nombre " + dateForSearch.ToString("d_M_yyyy")); }
         }
 
         /// <summary>
@@ -75,13 +79,13 @@ namespace AppSANA
                 }
                 catch (StorageException ex)
                 {
-                    Console.WriteLine("Error del servicio: {0}", ex.Message);
+                    Console.WriteLine("-- Error del servicio: {0}", ex.Message);
                     return null;
                 }
             }
             else
             {
-                Console.WriteLine("Cadena de conexión a la Cuenta de Almacenamiento no se ha especificado.");
+                Console.WriteLine("** Verifique la Cadena de Conexion del Blob Storage.");
                 return null;
             }
         }
@@ -93,8 +97,8 @@ namespace AppSANA
         /// <returns></returns>
         private static bool ReadFileDat(CloudBlobDirectory blobList)
         {
-            // Conexion a la API de los proyectos de Custom Vision (Firmas)
-            Console.WriteLine("0. Mapeando archivo .DAT");
+            //Mapeo de datos de Archivo .Dat
+            Console.WriteLine("1. Mapeando datos de archivo .DAT");
             List<string[]> result = new List<string[]>();
             InfoFilesImages.GlobalListInfo = result;
             var blobs = blobList.ListBlobsSegmentedAsync(true, BlobListingDetails.None, 5000, null, null, null).Result;
@@ -107,14 +111,23 @@ namespace AppSANA
                 // Extension Archivo
                 string ext = blobCloud.Name.Split("/")[2].Split(".")[1];
 
-                // AGREGAR .DAT (CAMBIO)
                 if (ext == "dat")
                 {
                     string fileList = GetCSV(blobCloud.Uri.ToString());
                     string[] tempStr;
 
                     tempStr = fileList.Split("\r\n");
-
+                    // 0. Nombre del archivo
+                    // 1. Tipo Documento
+                    // 2. Numero de Ente
+                    // 3. Numero de Cedula
+                    // 4. Nombre
+                    // 5. Numero de Tramite
+                    // 6. Oficina
+                    // 7. Regional
+                    // 8. Nombre de Archivo Sana Posesion
+                    // 9. Tipo
+                    // 10. Codigo de Barras
                     foreach (string line in tempStr)
                     {
                         if (!string.IsNullOrWhiteSpace(line)){ result.Add(line.Trim().Split("|"));}
@@ -129,7 +142,7 @@ namespace AppSANA
         private static List<List<String>> ProcessingBlobsListStage1(CloudBlobDirectory blobList)
         {
             // Conexion a la API de los proyectos de Custom Vision (Firmas)
-            //Console.WriteLine("1.1. Conectando a proyectos de Custom Vision.");
+            // Console.WriteLine("1.1. Conectando a proyectos de Custom Vision.");
             List<List<string>> result = new List<List<string>>();
             var blobs = blobList.ListBlobsSegmentedAsync(true, BlobListingDetails.None, 5000, null, null, null).Result;
 
@@ -141,21 +154,16 @@ namespace AppSANA
                 // Extension Archivo
                 string ext = blobCloud.Name.Split("/")[2].Split(".")[1];
 
-                if (ext == "jpg")
+                if (ext == "jpg" || ext == "png")
                 {
-                    //1. Nombre Original (Int)
+                    //- Nombre Original (Int)
                     listBlob.Add(blobCloud.Name.Split("/")[2].Split(".")[0]);
 
-                    //2. Extension Archivo
-                    listBlob.Add(blobCloud.Name.Split("/")[2].Split(".")[1]);
 
-                    //3. Nombre Cambiado (Id Tramite) (Int)
+                    //- URL (String)
                     listBlob.Add(blobCloud.Uri.ToString());
 
-                    //4. URL (String)
-                    listBlob.Add(blobCloud.Uri.ToString());
-
-                    // .. Descargando Blob de formulario
+                    //- Proceso de descarga Blob de formulario
                     bool processBool = DownloadLocalBlob(listBlob[0], blobCloud.Uri.ToString());
 
                     //5. Download (Bool) 
@@ -210,11 +218,11 @@ namespace AppSANA
 
             foreach (List<string> subList in blobList)
             {
-                if (bool.Parse(subList[4]))
+                if (bool.Parse(subList[2]))
                 {
                     Console.WriteLine("#############");
                     Console.WriteLine(subList[0]);
-                    Dictionary<string, float[]> imagePrediction = await Prediction.PredictImageURLForm(projectForm.Id, modelNameObjectDetection, subList[2]);
+                    Dictionary<string, float[]> imagePrediction = await Prediction.PredictImageURLForm(projectForm.Id, modelNameObjectDetection, subList[1]);
                     var respCrop = ProcessCropBlob(subList[0], imagePrediction);
 
                     //Console.WriteLine("4. Conexion y prediccion de campos de CC y Firma.");
@@ -416,7 +424,7 @@ namespace AppSANA
             // FIRMAS MODFIFICAR NOMBRE DE MODELO
             try
             {
-                logPredictionSignature = await Prediction.PredictImageFile(projectSignature.Id, "iteracion3", localFileNameFirma, respID);
+                logPredictionSignature = await Prediction.PredictImageFile(projectSignature.Id, "Iteration5", localFileNameFirma, respID);
                 return logPredictionSignature;
             }
             catch (Exception e)
@@ -464,7 +472,7 @@ namespace AppSANA
             foreach (List<string> subList in InfoFilesImages.GeneralListPrint)
             {
                 // Atributos a mostrar en el reporte
-                string line = string.Join(",", subList);
+                string line = subList[3] + "," + subList[1] + "," + subList[4] + "," + subList[5];
                 csvcontent.AppendLine(line);
             }
 
@@ -478,7 +486,7 @@ namespace AppSANA
                 client.UseDefaultCredentials = false;
                 client.EnableSsl = true;
                 //client.Credentials = new NetworkCredential("noreply@bancoagrario.gov.co", "4grarioBAC2019*");
-                client.Credentials = new NetworkCredential("kevin.sanchez@mail.escuelaing.edu.co", "52809327kessp");
+                client.Credentials = new NetworkCredential("kevin.sanchez@mail.escuelaing.edu.co", "[NoPassword]");
                 client.Host = "smtp.office365.com";
 
                 //Add a new attachment to the E-mail message, using the correct MIME type
